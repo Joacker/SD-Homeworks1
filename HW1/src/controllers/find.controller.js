@@ -6,8 +6,7 @@ const getItems = async (req,res) => {
     res.header("Access-Control-Allow-Origin","*");
     const response = await poolGRPC.query(`select * from items;`);
     console.log("Getting all clientes");
-    //console.log(response.rows[0].ip);
-    res.json(1);
+    res.json(response.rows);
 };
 
 module.exports = {
