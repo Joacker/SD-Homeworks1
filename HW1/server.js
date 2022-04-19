@@ -18,11 +18,11 @@ server.use(cors())
 
 /* VARIABLES */
 
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 4000
 var ip = process.env.PORT || 'localhost'
 
-server.get('/', (req,res) => res.send('<h1>Server Operando</h1>'))
-
+//server.get('/', (req,res) => res.send('<h1>Server Operando</h1>'))
+server.use('/api/items', require('./src/api/find'))
 /* PORTS */
 
 server.listen(port,()=>{
