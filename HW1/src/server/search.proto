@@ -1,15 +1,4 @@
-syntax = 'proto3';
-
-package search;
-
-
-message GetItemsRequest {
-    string name = 1;
-}
-
-message IntoRequest {
-    repeated Item items = 1;
-}
+syntax = "proto3";
 
 message Item {
     int32 id = 1;
@@ -18,6 +7,15 @@ message Item {
     string category = 4;
     int32 count = 5;
 }
+
+message Response {
+    repeated Item items = 1;
+}
+
+message GetItemsRequest {
+    string name = 1;
+}
+
 service ItemService {
-    rpc GetItem(GetItemsRequest) returns (IntoRequest) {}
+    rpc GetItem(GetItemsRequest) returns (Response) {};
 }
