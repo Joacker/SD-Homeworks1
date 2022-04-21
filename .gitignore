@@ -1,3 +1,7 @@
 HW1/node_modules/
 
 HW1/*.conf
+
+HW1/src/server/node_modules/
+
+HW1/src/client/node_modules/

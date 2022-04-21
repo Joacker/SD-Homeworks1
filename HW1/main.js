@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
-//const grpc_cli = require('./src/client/client_search')
+const client = require('./src/client/client_search')
 const server = require('./src/server/server_search')
 //-------------------------------------------
 
@@ -22,8 +22,7 @@ app.use(cors())
 var port = process.env.PORT || 4000
 var ip = process.env.PORT || 'localhost'
 
-//app.get('/', (req,res) => res.send('<h1>app Operando</h1>'))
-/*app.get("/items", async (req, res) => {
+app.get("/items", async (req, res) => {
     const item = req.query.name;
     if (item) {
       grpc.GetItem({name: item}, (error, items) => {
@@ -33,7 +32,7 @@ var ip = process.env.PORT || 'localhost'
           } res.json(items);
       })
     }
-  });*/
+  });
 app.use('/api/items', require('./src/api/find'));
 
 /* PORTS */

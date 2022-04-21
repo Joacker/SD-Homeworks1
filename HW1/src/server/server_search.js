@@ -1,7 +1,6 @@
 const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
-
-const PROTO_PATH =  __dirname + "../configs/example.proto";
+const PROTO_PATH =  "./src/server/search.proto";
 
 const items = require('./data.json');
 
@@ -36,4 +35,4 @@ const options = {
     });
   };
   
-  modules.exports = server;
+  exports.server = server;
