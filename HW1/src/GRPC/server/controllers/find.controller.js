@@ -12,6 +12,7 @@ const getItems = async (req,res) => {
     res.json(response.rows);
 };
 
+
 module.exports = {
     getItems,
-};
+}
