@@ -1,6 +1,6 @@
 const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
-const PROTO_PATH =  "./src/server/search.proto";
+const PROTO_PATH =  "./src/GRPC/server/search.proto";
 const { poolGRPC } = require('./configs/database')
 const dotenv = require('dotenv')
 dotenv.config();

@@ -3,8 +3,8 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
-const grpc = require('./src/client/client_search')
-const server = require('./src/server/server_search')
+const grpc = require('./src/GRPC/client/client_search')
+const server = require('./src/GRPC/server/server_search')
 //-------------------------------------------
 
 /* CONFIGS */
@@ -33,7 +33,7 @@ app.get("/items", async (req, res) => {
       })
     }
   });
-app.use('/api/items', require('./src/server/api/find'));
+app.use('/api/items', require('./src/GRPC/server/api/find'));
 
 /* PORTS */
 
