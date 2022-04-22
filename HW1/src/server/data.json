@@ -2,23 +2,66 @@
     "item_list": [
       {
         "id": 1,
-        "name": "Item 1",
-        "value": 5
+        "name": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+        "price": 109.95,
+        "category": "mens clothing",
+        "count": 120
       },
       {
         "id": 2,
-        "name": "Item 2",
-        "value": 10
+        "name": "Mens Casual Premium Slim Fit T-Shirts ",
+        "price": 22.3,
+        "category": "mens clothing",
+        "count": 259
       },
       {
         "id": 3,
-        "name": "Item 3",
-        "value": 15
+        "name": "Mens Cotton Jacket",
+        "price": 55.99,
+        "category": "mens clothing",
+        "count": 500
       },
       {
         "id": 4,
-        "name": "test",
-        "value": 20
+        "name": "Mens Casual Slim Fit",
+        "price": 15.99,
+        "category": "mens clothing",
+        "count": 430
+      },
+      {
+        "id": 5,
+        "name": "John Hardy Womens Legends Naga Gold & Silver Dragon Station Chain Bracelet",
+        "price": 695,
+        "category": "jewelery",
+        "count": 400
+      },
+      {
+        "id": 6,
+        "name": "Solid Gold Petite Micropave ",
+        "price": 168,
+        "category": "jewelery",
+        "count": 70
+      },
+      {
+        "id": 7,
+        "name": "White Gold Plated Princess",
+        "price": 9.99,
+        "category": "jewelery",
+        "count": 400
+      },
+      {
+        "id": 8,
+        "name": "Pierced Owl Rose Gold Plated Stainless Steel Double",
+        "price": 10.99,
+        "category": "jewelery",
+        "count": 100
+      },
+      {
+        "id": 9,
+        "name": "WD 2TB Elements Portable External Hard Drive - USB 3.0 ",
+        "price": 64,
+        "category": "electronics",
+        "count": 203
       }
     ]
   }

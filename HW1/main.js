@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
-const client = require('./src/client/client_search')
+const grpc = require('./src/client/client_search')
 const server = require('./src/server/server_search')
 //-------------------------------------------
 
@@ -33,7 +33,7 @@ app.get("/items", async (req, res) => {
       })
     }
   });
-app.use('/api/items', require('./src/api/find'));
+app.use('/api/items', require('./src/server/api/find'));
 
 /* PORTS */
 

@@ -6,6 +6,6 @@ const { getItems } = require('../controllers/find.controller')
 
 /* APIS */
 /*router.post('/insert',DataInserted)*/
-router.get('/items',getItems)
+router.post('/items',getItems)
 
 module.exports = router

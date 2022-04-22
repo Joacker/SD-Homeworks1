@@ -4,8 +4,11 @@ const { poolGRPC } = require('../configs/database')
 
 const getItems = async (req,res) => {
     res.header("Access-Control-Allow-Origin","*");
-    const response = await poolGRPC.query(`select * from items;`);
-    console.log("Getting all clientes");
+    const { name } = req.body;
+    const SQLquery = `select * from items where name like '%' || $1 || '%';`;
+    const find = [name];
+    const response = await poolGRPC.query(SQLquery,find)
+    console.log("Getting all items");
     res.json(response.rows);
 };
 
