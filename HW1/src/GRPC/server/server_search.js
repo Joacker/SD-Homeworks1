@@ -1,6 +1,6 @@
 const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
-const PROTO_PATH =  "./src/GRPC/server/search.proto";
+const PROTO_PATH =  "./server/search.proto";
 const { poolGRPC } = require('./configs/database')
 const dotenv = require('dotenv')
 dotenv.config();
@@ -33,10 +33,10 @@ const options = {
           if (err) {
             console.log(err.stack);
             //callback(err, null);
-          }else{
+          }/*else{
             console.log(items)
             //callback(null, { items: items});
-          }
+          }*/
           const item = items.filter((obj) => obj.name.includes(itemName));
           callback(null, { items: item});
         })
@@ -46,10 +46,10 @@ const options = {
           if (err) {
             console.log(err.stack);
             //callback(err, null);
-          }else{
+          }/*else{
             console.log(items)
             //callback(null, { items: items});
-          }
+          }*/
           const item = items.filter((obj) => obj.name.includes(itemName));
           callback(null, { items: item});
         })
