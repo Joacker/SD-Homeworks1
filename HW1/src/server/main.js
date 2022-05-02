@@ -62,9 +62,17 @@ app.get("/items", async (req, res) => {
                params:{
                    name: item
                 }
-            }).then(res2 => {
+            }).then(async res2 => {
             //console.log(`statusCode: ${res.status}`)
-            console.log('Data:',res2.data);
+            //console.log('Data:',res2.data);
+            var count = 0;
+            //contador de consultas en cache
+            for await (const key of redisclient.scanIterator()) {
+                // use the key!
+                count ++;
+                console.log(key+' '+await redisclient.get(key));
+            }
+
             let data = JSON.stringify(res2.data)
             redisclient.set(item, data);
             cache = res2.data;
