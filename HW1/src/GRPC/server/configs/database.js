@@ -6,10 +6,10 @@ const Pool = require('pg').Pool
 /* ENVS */
 
 const poolGRPC = new Pool ({
-    host: 'localhost',
+    host: 'postgres',
     user: 'postgres',
-    password: '123',
-    database: 'SD1',
+    password: 'marihuana',
+    database: 'tiendita',
     port: '5432',
 });
 

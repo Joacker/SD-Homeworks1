@@ -18,7 +18,7 @@ app.get("/items", async (req, res) => {
     console.log('Primer IF');
     grpc.GetItem({name: item}, (error, items) => {
       if (error){
-          console.log(error);
+          //console.log(error);
           res.json({});
       } res.json(items);
     })
@@ -27,7 +27,7 @@ app.get("/items", async (req, res) => {
     const item = null;
     grpc.GetItem({name: item}, (error, items) => {
       if (error){
-          console.log(error);
+          //console.log(error);
           res.json({});
       }
       res.json(items);

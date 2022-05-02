@@ -19,12 +19,22 @@ app.use(cors())
 
 /* VARIABLES */
 
-var port = process.env.PORT || 8070
-var ip = process.env.PORT || 'localhost'
-var redisport = process.env.PORT || 6379
+var port = process.env.PORT || 8070;
 
-const redisclient = redis.createClient(redisport)
+const redisclient = redis.createClient({
+    url: process.env.REDIS_URL
+});
+console.log('waiting for redis start...')
+redisclient.on('ready', function () {
+    console.log('redis is ready',process.env.REDIS_URL)
+});
 redisclient.connect();
+//const redisclient = redis.createClient({redisport});
+
+/*(async () => {
+    console.log(1)
+    await redisclient.connect();
+})();*/
 
 console.log('Redis conection: '+redisclient.isOpen);
 global.redisclient = redisclient;
@@ -32,9 +42,10 @@ global.redisclient = redisclient;
 app.get("/items", async (req, res) => {
     const item = req.query.name;
     if (item) {
+        console.log('Existe Item');
       grpc.GetItem({name: item}, (error, items) => {
           if (error){
-              console.log(error);
+              //console.log(error);
               res.json({});
           } res.json(items);
       })
@@ -57,7 +68,7 @@ app.get("/items", async (req, res) => {
           res.json(cache);
         }else{
           console.log('No esta en Cache');
-          axios.get('http://localhost:8050/items', 
+          axios.get('http://g_rpc:8050/items', 
           {
                params:{
                    name: item
@@ -145,8 +156,8 @@ app.get("/items", async (req, res) => {
 }*/
 
 
-app.use('/api/items', require('../GRPC/server/api/find'));
-app.use('/api/items', require('./api/find'));
+//app.use('/api/items', require('../GRPC/server/api/find'));
+//app.use('/api/items', require('./api/find'));
 
 
 
@@ -154,5 +165,5 @@ app.use('/api/items', require('./api/find'));
 /* PORTS */
 
 app.listen(port,()=>{
-    console.log(`Servidor de grpc-app corriendo en: http://${ip}:${port}.`)
+    console.log(`Servidor de grpc-app corriendo en: http://localhost:${port}.`)
 });

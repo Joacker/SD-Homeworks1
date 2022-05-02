@@ -1,26 +1,34 @@
 ###############-VERSION-###################
-version: '3.7'
+version: '3.3'
 
 ################-SERVICIOS-################
 services:
 
 ###################-CLIENTE-###########################
    cliente:
+    container_name: cliente
     build: ./HW1/src/cli
     depends_on:
         - postgres
         - servidor
     ports:
         - "8080:8080"
+    environment:
+        - REDIS_URL=redis://cache
 
 ###################-SERVIDOR-#########################   
    servidor:
+    container_name: servidor
     build: ./HW1/src/server
     depends_on:
         - postgres
+        - cache
+    environment:
+        - REDIS_URL=redis://cache
 
 ###################-GRPC-#############################  
    g_rpc:
+    container_name: g_rpc
     build: ./HW1/src/GRPC
     restart: always
     depends_on:
@@ -31,9 +39,12 @@ services:
     
 #################-POSTGRES-##########################
    postgres:
+    container_name: postgres
     image: docker.io/bitnami/postgresql:11
     volumes:
-        - ./HW1/src/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+        - ./HW1/src/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+        - "3000:5432"
     environment:
         - POSTGRESQL_USER=postgres
         - POSTGRESQL_DATABASE=tiendita
@@ -41,12 +52,16 @@ services:
         - POSTGRESQL_PASSWORD=marihuana
   
 ######################-REDIS-##########################
-   redis_cache:
-    image: docker.io/bitnami/redis:latest
-    volumes:
-        - ./HW1/redis.conf:/usr/local/etc/redis/redis.conf
-    environment:
-        - ALLOW_EMPTY_PASSWORD=yes
+   redis:
+    container_name: cache
+    image: redis:6.2.6
+    expose:
+        - 6379
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+    #volumes:
+    #    - ./HW1/redis.conf:/usr/local/etc/redis/redis.conf
+    #environment:
+    #    - ALLOW_EMPTY_PASSWORD=yes
 
 
 
@@ -62,5 +77,3 @@ services:
 #     - ./data/redis:/bitnami/redis/data
 #    ports:
 #      - "6379:3000"
-
-  
