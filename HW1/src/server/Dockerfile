@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:14
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -15,6 +15,6 @@ RUN npm install express axios redis request@2.81.0 dotenv cors body-parser nodem
 # Bundle app source
 COPY . .
 
-EXPOSE 8070
+EXPOSE 8080
 
 CMD [ "node", "main.js" ]

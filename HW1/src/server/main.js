@@ -20,7 +20,6 @@ app.use(cors())
 /* VARIABLES */
 
 var port = process.env.PORT || 8070;
-
 const redisclient = redis.createClient({
     url: process.env.REDIS_URL
 });
@@ -29,12 +28,6 @@ redisclient.on('ready', function () {
     console.log('redis is ready',process.env.REDIS_URL)
 });
 redisclient.connect();
-//const redisclient = redis.createClient({redisport});
-
-/*(async () => {
-    console.log(1)
-    await redisclient.connect();
-})();*/
 
 console.log('Redis conection: '+redisclient.isOpen);
 global.redisclient = redisclient;
@@ -64,8 +57,11 @@ app.get("/items", async (req, res) => {
         if(reply)
         {
           console.log('Esta en Cache');
+          console.log("asdasdsdadasd")
+          
           cache = JSON.parse(reply)
           res.json(cache);
+          //contador de consultas en cache
         }else{
           console.log('No esta en Cache');
           axios.get('http://g_rpc:8050/items', 
@@ -73,24 +69,27 @@ app.get("/items", async (req, res) => {
                params:{
                    name: item
                 }
-            }).then(async res2 => {
+            }).then( res2 => {
             //console.log(`statusCode: ${res.status}`)
             //console.log('Data:',res2.data);
-            var count = 0;
-            //contador de consultas en cache
-            for await (const key of redisclient.scanIterator()) {
-                // use the key!
-                count ++;
-                console.log(key+' '+await redisclient.get(key));
-            }
-
+            
             let data = JSON.stringify(res2.data)
             redisclient.set(item, data);
             cache = res2.data;
+            console.log("hola")
             res.json(cache);
           }).catch(error => {console.error(error)})
           
         }
+        console.log(await redisclient.keys("*"));
+        /*
+        var count = 0;
+        for await (const key of redisclient.scanIterator()) {
+            // use the key!
+            count ++;
+            console.log(count +" "+ key);
+            }
+            */
     })();
   });
   /*app.get( "/search",async (req, res, next) => {

@@ -51,20 +51,20 @@ services:
         - ALLOW_EMPTY_PASSWORD=yes
         - POSTGRESQL_PASSWORD=marihuana
   
-######################-REDIS-##########################
+######################-REDIS_SV-##########################
    redis:
     container_name: cache
     image: redis:6.2.6
-    expose:
-        - 6379
-    command: ["redis-server", "--bind", "redis", "--port", "6379"]
-    #volumes:
-    #    - ./HW1/redis.conf:/usr/local/etc/redis/redis.conf
-    #environment:
-    #    - ALLOW_EMPTY_PASSWORD=yes
+    restart: always
+    ports:
+        - "6379:6379"
+    environment:
+      - REDIS_MAXMEMORY=1mb
+      - REDIS_MAXMEMORY_POLICY=allkeys-lru
+      - ALLOW_EMPTY_PASSWORD=yes
+    command: ["redis-server", "--bind", "redis","--maxmemory 2mb","--maxmemory-policy allkeys-lru"]
 
-
-
+######################-REDIS_CLI-##########################
 ##################-OTRAS-PRUEBAS-###################
 
 #################################################    

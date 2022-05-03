@@ -1,0 +1,14 @@
+Luego de hacer el docker compose
+
+hacer un docker ps
+
+docker exec -it nombre_container sh
+
+redis-cli -u redis://nombre_container
+
+Keys * 
+Info memory 
+CONFIG SET maxmemory 1131000
+FLUSHALL /*para vaciar cache*/
+CONFIG SET maxmemory-policy allkeys-lru
+config get maxmemory*
