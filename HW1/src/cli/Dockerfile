@@ -15,6 +15,6 @@ RUN npm install express axios request@2.81.0
 # Bundle app source
 COPY . .
 
-EXPOSE 8080
+EXPOSE 4000
 
 CMD [ "node", "index.js" ]

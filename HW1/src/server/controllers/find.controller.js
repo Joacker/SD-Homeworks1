@@ -5,73 +5,54 @@ const https = require('https')
 
 
 const getItems = async (req,res) => {
-    res.header("Access-Control-Allow-Origin","*");
-    const { name } = req.body;
-    const SQLquery = `select * from items where name like '%' || $1 || '%';`;
-    const find = [name];
-    const response = await poolGRPC.query(SQLquery,find)
-    console.log("Getting all items");
-    res.json(response.rows);
-};
-
-const getRedis = async (req, res, next) => {
-    // si no esta en cache
-    try{
-        res.header("Access-Control-Allow-Origin","*");
-        console.log('Fetching data ...');
-        
-        const { buscar } =req.query.q;
-    
-        // Set to redis
-        (async() => {
-            axios.get('http://gr_rpc:50051/items',
-            {
-    
-                params: {name: buscar}
-    
-            }).then(res2 => {
-                console.log('Data:',res2.data);
-                let data = JSON.stringify(res2.data)
-                let min_cache;
-                if(data != null){
-                    redisclient.set(buscar, data)
-                    min_cache = res2.data
-                    res.json(min_cache)
-                }else{
-                    console.log('Consulta vacia, no se guarda en cache.')
-                }
-            })
-        })();
-        var count = 0;
-        //contador de consultas en cache
-        for await (const key of redisclient.scanIterator()) {
-            // use the key!
-            count ++;
-            console.log(key+' '+await redisclient.get(key));
-          }
-          console.log(count);
-    } catch (err) {
-        console.error(err);
-        res.status(500);
+    const item = req.query.name;
+    if (item) {
+        console.log('Existe Item');
+      grpc.GetItem({name: item}, (error, items) => {
+          if (error){
+              //console.log(error);
+              res.json({});
+          } res.json(items);
+      })
     }
 };
 
-// Cache middleware
-
-async function cache (req, res, next) {
-    const { buscar } = req.query.q;
-    var data = await redisclient.get(buscar)
-        if(data != null){
-            console.log('De cache')
-            res.send(data);
-        } else {
-            next();
+const getRedis = async (req, res, next) => {
+    console.log('Entro al Servidor');
+    const item = req.query.q;
+    console.log('item Enviado: ',item)
+    let cache = null;
+    (async () => {
+      let reply = await redisclient.get(item);
+        if(reply)
+        {
+          console.log('Esta en Cache');          
+          cache = JSON.parse(reply)
+          res.json(cache);
+          //contador de consultas en cache
+        }else{
+          console.log('No esta en Cache');
+  
+          axios.get('http://g_rpc:5000/items', 
+          {
+               params:{
+                   name: item
+                }
+            }).then( json => {
+            
+            let data = JSON.stringify(json.data)
+            redisclient.set(item, data);
+            cache = json.data;
+            console.log("hola")
+            res.json(cache);
+          }).catch(error => {console.error(error)})
+          
         }
-}
-
+        console.log(await redisclient.keys("*"));
+    })();
+};
 
 module.exports = {
     getItems,
     getRedis,
-    cache,
 };

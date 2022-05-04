@@ -15,6 +15,6 @@ RUN npm install express axios redis request@2.81.0 dotenv cors body-parser nodem
 # Bundle app source
 COPY . .
 
-EXPOSE 8080
+EXPOSE 4000
 
 CMD [ "node", "main.js" ]

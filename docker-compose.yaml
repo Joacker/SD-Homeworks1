@@ -12,7 +12,7 @@ services:
         - postgres
         - servidor
     ports:
-        - "8080:8080"
+        - "4000:4000"
     environment:
         - REDIS_URL=redis://cache
 
@@ -35,7 +35,7 @@ services:
         - servidor
         - cliente
     ports:
-        - "8050:8050"
+        - "5000:5000"
     
 #################-POSTGRES-##########################
    postgres:

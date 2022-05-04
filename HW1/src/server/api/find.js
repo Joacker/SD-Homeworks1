@@ -8,9 +8,9 @@ const { cache } = require('../controllers/find.controller')
 
 /* APIS */
 /*router.post('/insert',DataInserted)*/
-router.post('/items',getItems)
+router.get('/items',getItems)
 
-router.get('/redis',cache, getRedis)
+router.get('/search', getRedis)
 
 
 module.exports = router
