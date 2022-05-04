@@ -58,9 +58,7 @@ Si un dato fue consultado varias veces, no se asegura que se mantenga en el cach
 **Metodo search**
 
 El método search ejerce la acción de buscar en la base de datos o cache, dado un string.
-
-```
-http://localhost:4000/inventory/search?q=<palabra a buscar>
+http://localhost:4000/inventory/search/?q=<palabra a buscar>
 ```
 **Finalmente para ejecutar el SW se recomienda usar el siguiente comando**
 ```sh
