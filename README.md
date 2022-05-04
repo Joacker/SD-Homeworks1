@@ -66,3 +66,4 @@ http://localhost:4000/inventory/search/?q=<palabra a buscar>
  ```bash
 docker-compose up
 ```
+Cabe hacer mención que unos cuantos scripts del trabajo son extraidos de ejemplos practicos vistos en ayudantía. Gracias por su atención.
