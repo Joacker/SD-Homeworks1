@@ -62,7 +62,7 @@ El método search ejerce la acción de buscar en la base de datos o cache, dado 
 ```
 http://localhost:4000/inventory/search?q=<palabra a buscar>
 ```
-**Finalmente para ejecutar el SW se recomienda ejecutar el siguiente comando**
+**Finalmente para ejecutar el SW se recomienda usar el siguiente comando**
 ```sh
 docker-compose up
 ```
